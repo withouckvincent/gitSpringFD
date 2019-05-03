@@ -8,6 +8,49 @@
 <body>
 	<h1>Pizza Luigi</h1>
 	<img src="images/luigi.jpg" alt="pizza" class="fullwidth">
-	<h2>Goede <span th:text="${boodschap}"></span></h2>
+	<h2>
+		Goede <span th:text="${boodschap}"></span>
+	</h2>
+	<!-- hoofdstuk 12 -->
+	<br>
+	<h2>De zaakvoerder</h2>
+
+	<dl th:object="${zaakvoerder}">
+		<dt>Naam</dt>
+		<dd th:text="*{naam}"></dd>
+		<dt>Aantal kinderen</dt>
+		<dd th:text="*{aantalKinderen}"></dd>
+		<dt>Gehuwd</dt>
+		<dd th:text="*{gehuwd} ? 'Ja' : 'Nee'"></dd>
+		<dt>Adres</dt>
+		<dd th:object="${zaakvoerder.adres}"
+			th:text="|*{straat} *{huisNr} *{postcode} *{gemeente}|"></dd>
+
+	</dl>
+
+
+	<!-- hoofdstuk 11 
+	<br>
+	Luigi heeft <span th:text="${kinderen}"></span> kinderen.
+	<br>
+	De koers van euro is:<span th:text="${koersEuro}"></span>
+	<br>
+	Deling: <span th:text="${getal} / 2"></span>
+	<br>
+	Gelijk: <span th:text="${getal} == 8"></span>
+	<br>
+	And: <span th:text="${getal} > 7 and ${getal} < 10"></span>
+	<br>
+	Conditie:<span th:text="${ getal} == 7 ? 'geluk' : 'ongeluk'"></span>
+	<br>
+	Vaste Tekst en data : <span th:text="|Luigi heeft ${ kinderen} kinderen.|"></span>	
+    <br>
+    Array: <span th:text="${namen1[0]}"></span>
+    <br>
+    list: <span th:text="${namen2[1]}"></span>
+    <br>
+    Map: <span th:text="${karakters['Averell']}"></span>
+    Of Map : <span th:text="${karakters.Joe}"></span>
+     -->
 </body>
 </html>
