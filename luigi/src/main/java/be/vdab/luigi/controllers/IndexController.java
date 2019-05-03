@@ -3,10 +3,14 @@ package be.vdab.luigi.controllers;
 import java.time.LocalTime;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 //hier komen imports.
 //Eclipse voegt ontbrekende imports toe met de sneltoetsen shift+ctrl+o.
 
+@RestController 
+@RequestMapping("/")
 class IndexController {
 
 	@GetMapping
