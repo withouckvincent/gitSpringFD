@@ -2,30 +2,30 @@ package be.vdab.luigi.controllers;
 
 import java.time.LocalTime;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 //hier komen imports.
 //Eclipse voegt ontbrekende imports toe met de sneltoetsen shift+ctrl+o.
 
-@RestController 
+@Controller
 @RequestMapping("/")
 class IndexController {
-
+//	@GetMapping
+//	String index() {
+//		return "index";
+//	}
 	@GetMapping
-	String index() {
-		StringBuffer buffer = new StringBuffer("<!doctype html><html><title>Hallo</title><body>");
+	ModelAndView index() { 
 		int uur = LocalTime.now().getHour();
 		if (uur < 12) {
-			buffer.append("Goede morgen");
-		} else if (uur < 18) {
-			buffer.append("Goede middag");
-		} else {
-			buffer.append("Goede avond");
+			return new ModelAndView("index", "boodschap", "morgen"); 
 		}
-		buffer.append("</body></html>"); 
-		return buffer.toString();
-	}
-
+		if (uur < 18) {
+			return new ModelAndView("index", "boodschap", "middag");
+		}
+		return new ModelAndView("index", "boodschap", "avond");
+		}	
 }
