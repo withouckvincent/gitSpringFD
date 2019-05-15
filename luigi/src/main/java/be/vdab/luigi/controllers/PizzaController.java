@@ -2,6 +2,8 @@ package be.vdab.luigi.controllers;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +36,34 @@ class PizzaController {
 		ModelAndView modelAndView = new ModelAndView("pizza");
 		Arrays.stream(pizzas).filter(pizza -> pizza.getId() == id).findFirst()
 				.ifPresent(pizza -> modelAndView.addObject("pizza", pizza));
+		return modelAndView;
+	}
+
+	// hoofdstuk 21
+	private List<BigDecimal> uniekePrijzen() {
+		return Arrays.stream(pizzas).map(pizza -> pizza.getPrijs()).distinct().sorted().collect(Collectors.toList());
+	}
+
+	@GetMapping("prijzen")
+	ModelAndView prijzen() {
+		return new ModelAndView("prijzen", "prijzen", uniekePrijzen());
+	}
+
+	private List<Pizza> pizzasMetPrijs(BigDecimal prijs) {
+		return Arrays.stream(pizzas).filter(pizza -> pizza.getPrijs().compareTo(prijs) == 0)
+				.collect(Collectors.toList());
+	}
+
+//	@GetMapping("prijzen/{prijs}")
+//	ModelAndView pizzasMetEenPrijs(@PathVariable BigDecimal prijs) {
+//		return new ModelAndView("prijzen", "pizzas", pizzasMetPrijs(prijs));
+//	}
+
+	@GetMapping("prijzen/{prijs}")
+	ModelAndView pizzasMetEenPrijs(@PathVariable BigDecimal prijs) {
+		ModelAndView modelAndView = new ModelAndView("prijzen", "pizzas", pizzasMetPrijs(prijs));
+		modelAndView.addObject("prijzen", uniekePrijzen());
+		// of : return new ModelAndView("prijzen", "pizzas", pizzasMetPrijs(prijs)).addObject("prijzen", uniekePrijzen());
 		return modelAndView;
 	}
 

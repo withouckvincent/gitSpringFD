@@ -4,6 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,5 +47,16 @@ public class PizzaControllerTest {
 	@Test
 	public void pizzaGeeftOnbestaandePizzaNietDoorAanDeThymeleafPagina() {
 		assertFalse(controller.pizza(-1).getModel().containsKey("pizza"));
+	}
+	
+	@Test
+	public void pizzaGeeftUniekePrijzen() {
+			List<BigDecimal> prijzen=(List<BigDecimal>) controller.prijzen().getModel().get("prijzen");
+			Set<BigDecimal> uniekePrijzen=new TreeSet<>(prijzen);
+			assertEquals(uniekePrijzen.size(), prijzen.size());
+			int i=0;
+			for (BigDecimal prijs:uniekePrijzen) {
+				assertEquals(prijs, prijzen.get(i++));
+			}
 	}
 }
