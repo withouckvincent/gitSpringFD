@@ -11,18 +11,31 @@ import java.util.TreeSet;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import be.vdab.luigi.domain.Pizza;
+import be.vdab.luigi.services.EuroService;
 
 // enkele imports
+
+@RunWith(MockitoJUnitRunner.class)
+
 public class PizzaControllerTest {
 	private PizzaController controller;
 
+	@Mock
+	private EuroService euroService;
+
+	
+	
 	@Before
 	public void before() {
-		controller = new PizzaController();
+		controller = new PizzaController(euroService);
+		
 	}
-
+ 
 	@Test
 	public void pizzasGebruiktDeThymeleafPaginaPizzas() {
 		assertEquals("pizzas", controller.pizzas().getViewName());
