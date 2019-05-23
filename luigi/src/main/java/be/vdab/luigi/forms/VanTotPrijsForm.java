@@ -2,12 +2,16 @@ package be.vdab.luigi.forms;
 
 import java.math.BigDecimal;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
 public class VanTotPrijsForm {
 
-	private final BigDecimal van;
-	private final BigDecimal tot;
+	@NotNull @PositiveOrZero private final BigDecimal van;
+	@NotNull @PositiveOrZero private final BigDecimal tot;
 	
-	public VanTotPrijsForm(BigDecimal van, BigDecimal tot) {
+	@Valid public VanTotPrijsForm(BigDecimal van, BigDecimal tot) {
 		this.van = van;
 		this.tot = tot;
 	}

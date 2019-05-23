@@ -2,6 +2,8 @@ package be.vdab.luigi.controllers;
 
 import java.math.BigDecimal;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -118,7 +120,7 @@ class PizzaController {
 	}
 
 	@GetMapping("vantotprijs")
-	ModelAndView vanTotPrijs(VanTotPrijsForm form, Errors errors) {
+	ModelAndView vanTotPrijs( @Valid VanTotPrijsForm form, Errors errors) {
 		ModelAndView modelAndView = new ModelAndView("vantotprijs");
 		if (errors.hasErrors()) {
 			return modelAndView;
