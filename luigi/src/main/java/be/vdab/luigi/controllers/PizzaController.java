@@ -8,9 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import be.vdab.luigi.domain.Pizza;
 import be.vdab.luigi.forms.VanTotPrijsForm;
 import be.vdab.luigi.services.EuroService;
 import be.vdab.luigi.services.PizzaService;
@@ -46,6 +49,24 @@ class PizzaController {
 	ModelAndView pizzas() {
 		// hoofdstuk 30.6 : return new ModelAndView("pizzas", "pizzas", pizzas);
 		return new ModelAndView("pizzas", "pizzas", pizzaService.findAll());
+	}
+
+	// hoofdstuk 34 post mapping
+
+	@PostMapping
+	String toevoegen(@Valid Pizza pizza, Errors errors, RedirectAttributes redirect) {
+		if (errors.hasErrors()) {
+			//return new ModelAndView("toevoegen"); 
+			return "toevoegen";
+		}
+		//pizzaService.create(pizza); Door RedirectAttributes kunnen we waarden terugkrijgen na het aanmaken van een nieuwe pizza 
+		
+		long id = pizzaService.create(pizza);
+		redirect.addAttribute("toegevoegd", id); 
+
+		
+		// return new ModelAndView("pizzas", "pizzas", pizzaService.findAll()); -->  probleem met F5 , zou twee kunnen uitgevoerd worden. 
+		return "redirect:/pizzas";
 	}
 
 	// nieuw hoofdstuk 16
@@ -120,12 +141,17 @@ class PizzaController {
 	}
 
 	@GetMapping("vantotprijs")
-	ModelAndView vanTotPrijs( @Valid VanTotPrijsForm form, Errors errors) {
+	ModelAndView vanTotPrijs(@Valid VanTotPrijsForm form, Errors errors) {
 		ModelAndView modelAndView = new ModelAndView("vantotprijs");
 		if (errors.hasErrors()) {
 			return modelAndView;
 		}
 		return modelAndView.addObject("pizzas", pizzaService.findByPrijsBetween(form.getVan(), form.getTot()));
+	}
+
+	@GetMapping("toevoegen/form")
+	ModelAndView toevoegenForm() {
+		return new ModelAndView("toevoegen").addObject(new Pizza(0, "", null, false));
 	}
 
 }
