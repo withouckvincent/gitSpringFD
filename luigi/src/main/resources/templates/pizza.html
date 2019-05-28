@@ -18,7 +18,7 @@
 			<dt>Pikant</dt>
 			<dd th:text="*{pikant} ? 'Ja' : 'Nee'"></dd>
 			<dt>In dollar</dt>
-			<dd th:text="${inDollar}"></dd>
+			<dd th:text="${#numbers.formatDecimal(inDollar,1,2)}"></dd>
 		</dl>
 	</div>
 </body>
