@@ -19,7 +19,15 @@ import be.vdab.luigi.domain.Persoon;
 @RequestMapping("/")
 class IndexController {
 	
-	private final AtomicInteger aantalKeerBekeken = new AtomicInteger(); 
+	private final AtomicInteger aantalKeerBekeken = new AtomicInteger();
+	//Controller advice maakt dit onderstande overbodig.
+/*	private final Identificatie identificatie; // sessie
+	
+	IndexController(Identificatie identificatie) { // sessie
+		this.identificatie = identificatie;        // sessie
+		}                                          // sessie
+*/
+	
 		//hoofdstuk 12
 		private String boodschap() {
 			int uur = LocalTime.now().getHour();
@@ -38,6 +46,8 @@ class IndexController {
 					new Persoon("Luigi", "Peperone", 7, true, LocalDate.of(1966,1,31), 
 					new Adres("Grote markt", "3", 9700, "Oudenaarde")));
 			modelAndView.addObject("aantalKeerBekeken",aantalKeerBekeken.incrementAndGet()); 
+			//Controller advice maakt dit onderstande overbodig.
+			//modelAndView.addObject(identificatie); // sessie
 			return modelAndView;
 			}		
 		
