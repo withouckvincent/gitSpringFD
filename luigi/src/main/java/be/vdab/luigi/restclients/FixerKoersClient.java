@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
+
 
 import be.vdab.luigi.exceptions.KoersClientException;
 
@@ -17,7 +17,7 @@ import be.vdab.luigi.exceptions.KoersClientException;
 
 @Order(1)
 
-@Component
+
 class FixerKoersClient implements KoersClient {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 // importeer Logger en LoggerFactory uit org.slf4j
