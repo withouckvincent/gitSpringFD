@@ -22,7 +22,6 @@ import be.vdab.luigi.domain.Pizza;
 import be.vdab.luigi.services.EuroService;
 import be.vdab.luigi.services.PizzaService;
 
-// enkele imports
 
 @RunWith(MockitoJUnitRunner.class)
 
@@ -35,21 +34,13 @@ public class PizzaControllerTest {
 	@Mock
 	private PizzaService pizzaService;
 
-	/* hoofdstuk 30.6
-	@Before
-	public void before() {
-		controller = new PizzaController(euroService);
-		
-	}*/
 	
 	@Before
 	public void before() {
-		when(pizzaService.findById(1))
-		.thenReturn(Optional.of(new Pizza(1, "Test", BigDecimal.ONE, true)));
+		when(pizzaService.findById(1)).thenReturn(Optional.of(new Pizza(1, "Test", BigDecimal.ONE, true)));
 		controller = new PizzaController(euroService, pizzaService);
 		
 	}
-
 	
  
 	@Test
@@ -59,7 +50,6 @@ public class PizzaControllerTest {
 
 	@Test
 	public void pizzasGeeftPizzasDoorAanDeThymeleafPagina() {
-		// hoofdstuk 30.6 :assertTrue(controller.pizzas().getModel().get("pizzas") instanceof Pizza[]);
 		assertTrue(controller.pizzas().getModel().get("pizzas") instanceof List);
 	}
 

@@ -18,40 +18,40 @@ import be.vdab.luigi.domain.Persoon;
 @Controller
 @RequestMapping("/")
 class IndexController {
-	
+
 	private final AtomicInteger aantalKeerBekeken = new AtomicInteger();
-	//Controller advice maakt dit onderstande overbodig.
-/*	private final Identificatie identificatie; // sessie
-	
-	IndexController(Identificatie identificatie) { // sessie
-		this.identificatie = identificatie;        // sessie
-		}                                          // sessie
-*/
-	
-		//hoofdstuk 12
-		private String boodschap() {
-			int uur = LocalTime.now().getHour();
-			if (uur < 12) {
+	// Controller advice maakt dit onderstande overbodig.
+	/*
+	 * private final Identificatie identificatie; // sessie
+	 * 
+	 * IndexController(Identificatie identificatie) { // sessie this.identificatie =
+	 * identificatie; // sessie } // sessie
+	 */
+
+	// hoofdstuk 12
+	private String boodschap() {
+		int uur = LocalTime.now().getHour();
+		if (uur < 12) {
 			return "morgen";
-			}
-			if (uur < 18) {
+		}
+		if (uur < 18) {
 			return "middag";
-			}
-			return "avond";
-			}
-			@GetMapping
-			ModelAndView index() {
-			ModelAndView modelAndView = new ModelAndView("index","boodschap", boodschap()); 
-			modelAndView.addObject("zaakvoerder", 
-					new Persoon("Luigi", "Peperone", 7, true, LocalDate.of(1966,1,31), 
-					new Adres("Grote markt", "3", 9700, "Oudenaarde")));
-			modelAndView.addObject("aantalKeerBekeken",aantalKeerBekeken.incrementAndGet()); 
-			//Controller advice maakt dit onderstande overbodig.
-			//modelAndView.addObject(identificatie); // sessie
-			return modelAndView;
-			}		
-		
-		//hoofdstuk 11
+		}
+		return "avond";
+	}
+
+	@GetMapping
+	ModelAndView index() {
+		ModelAndView modelAndView = new ModelAndView("index", "boodschap", boodschap());
+		modelAndView.addObject("zaakvoerder", new Persoon("Luigi", "Peperone", 7, true, LocalDate.of(1966, 1, 31),
+				new Adres("Grote markt", "3", 9700, "Oudenaarde")));
+		modelAndView.addObject("aantalKeerBekeken", aantalKeerBekeken.incrementAndGet());
+		// Controller advice maakt dit onderstande overbodig.
+		// modelAndView.addObject(identificatie); // sessie
+		return modelAndView;
+	}
+
+	// hoofdstuk 11
 //			@GetMapping
 //			ModelAndView index() {			
 //		ModelAndView modelAndView=new ModelAndView("index");
